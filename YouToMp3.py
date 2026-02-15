@@ -41,6 +41,8 @@ def convert():
         'format': 'bestaudio/best',
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
         'noplaylist': True,
+        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
+        'nocheckcertificate': True,
     }
 
     # ถ้ามี FFmpeg ให้เพิ่ม postprocessors สำหรับแปลงเป็น MP3
