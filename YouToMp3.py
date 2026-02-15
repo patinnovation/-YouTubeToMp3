@@ -45,6 +45,10 @@ def convert():
         'nocheckcertificate': True,
     }
 
+    # ตรวจสอบว่ามีไฟล์ cookies.txt หรือไม่
+    if os.path.exists('cookies.txt'):
+         ydl_opts['cookiefile'] = 'cookies.txt'
+
     # ถ้ามี FFmpeg ให้เพิ่ม postprocessors สำหรับแปลงเป็น MP3
     if ffmpeg_available:
         ydl_opts['postprocessors'] = [{
