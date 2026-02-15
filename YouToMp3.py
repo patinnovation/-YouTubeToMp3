@@ -41,16 +41,16 @@ def convert():
         'format': 'bestaudio/best',
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
         'noplaylist': True,
-        'extractor_args': {'youtube': {'player_client': ['ios']}}, # ลองเปลี่ยนเป็น iOS
+        'extractor_args': {'youtube': {'player_client': ['android']}}, # กลับมาใช้ Android
         'nocheckcertificate': True,
-        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
     }
 
-    # หมายเหตุ: ลองไม่ใช้ cookies.txt ชั่วคราว เพราะอาจเกิดปัญหา IP ไม่ตรง (403 Forbidden)
-    # ถ้าจะใช้ ให้ uncomment บรรทัดข้างล่างนี้
-    # if os.path.exists('cookies.txt'):
-    #      print(f"Found cookies.txt at {os.path.abspath('cookies.txt')}")
-    #      ydl_opts['cookiefile'] = 'cookies.txt'
+    # กลับมาใช้ cookies.txt ร่วมกับ Android client (สูตรผสม)
+    if os.path.exists('cookies.txt'):
+         print(f"Found cookies.txt at {os.path.abspath('cookies.txt')}")
+         ydl_opts['cookiefile'] = 'cookies.txt'
+    else:
+         print("cookies.txt NOT FOUND in current directory")
 
     # ถ้ามี FFmpeg ให้เพิ่ม postprocessors สำหรับแปลงเป็น MP3
     if ffmpeg_available:
