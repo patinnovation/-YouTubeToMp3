@@ -47,7 +47,12 @@ def convert():
 
     # ตรวจสอบว่ามีไฟล์ cookies.txt หรือไม่
     if os.path.exists('cookies.txt'):
+         print(f"Found cookies.txt at {os.path.abspath('cookies.txt')}")
          ydl_opts['cookiefile'] = 'cookies.txt'
+    else:
+         print("cookies.txt NOT FOUND in current directory")
+         print(f"Current directory: {os.getcwd()}")
+         print(f"Directory contents: {os.listdir('.')}")
 
     # ถ้ามี FFmpeg ให้เพิ่ม postprocessors สำหรับแปลงเป็น MP3
     if ffmpeg_available:
