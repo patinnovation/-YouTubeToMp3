@@ -41,7 +41,6 @@ def convert():
         'format': 'bestaudio/best',
         'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s.%(ext)s',
         'noplaylist': True,
-        'extractor_args': {'youtube': {'player_client': ['android', 'web']}},
         'nocheckcertificate': True,
     }
 
@@ -49,10 +48,13 @@ def convert():
     if os.path.exists('cookies.txt'):
          print(f"Found cookies.txt at {os.path.abspath('cookies.txt')}")
          ydl_opts['cookiefile'] = 'cookies.txt'
+         # เมื่อใช้ Cookies ให้ใช้ client แบบ web (default) เพื่อให้ตรงกับ Cookies
+         if 'extractor_args' in ydl_opts:
+             del ydl_opts['extractor_args']
     else:
-         print("cookies.txt NOT FOUND in current directory")
-         print(f"Current directory: {os.getcwd()}")
-         print(f"Directory contents: {os.listdir('.')}")
+         print("cookies.txt NOT FOUND in current directory, using Android client bypass")
+         # ถ้าไม่มี Cookies ให้ลองใช้ Android client
+         ydl_opts['extractor_args'] = {'youtube': {'player_client': ['android', 'web']}}
 
     # ถ้ามี FFmpeg ให้เพิ่ม postprocessors สำหรับแปลงเป็น MP3
     if ffmpeg_available:
